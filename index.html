@@ -3,8 +3,490 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AuthApp - Secure Authentication System</title>
+    <title>ResearchHub AI - Intelligent Research Paper Management</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #d4af37;
+            --dark: #1a1a1a;
+            --grey: #2a2a2a;
+            --light-grey: #4a4a4a;
+            --white: #ffffff;
+            --accent: #3a3a3a;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #e0e0e0;
+            background: var(--dark);
+        }
+
+        nav {
+            background: var(--grey);
+            padding: 15px 30px;
+            box-shadow: 0 2px 15px rgba(212, 175, 55, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 1px;
+        }
+
+        nav .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        nav a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        nav .btn {
+            padding: 10px 20px;
+            background: var(--primary);
+            color: var(--dark);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        nav .btn:hover {
+            background: #e8c547;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--grey) 0%, var(--dark) 100%);
+            color: var(--white);
+            padding: 100px 30px;
+            text-align: center;
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 3px solid var(--primary);
+        }
+
+        .hero .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: var(--primary);
+            animation: slideDown 0.8s ease;
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            color: #b0b0b0;
+            animation: slideUp 0.8s ease 0.2s backwards;
+        }
+
+        .hero .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            animation: slideUp 0.8s ease 0.4s backwards;
+        }
+
+        .hero .btn-primary, .hero .btn-secondary {
+            padding: 15px 40px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .hero .btn-primary {
+            background: var(--primary);
+            color: var(--dark);
+        }
+
+        .hero .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .hero .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
+            background: #e8c547;
+        }
+
+        .hero .btn-secondary:hover {
+            transform: translateY(-3px);
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        .features {
+            padding: 80px 30px;
+            background: var(--dark);
+        }
+
+        .features .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 50px;
+            color: var(--primary);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: var(--grey);
+            padding: 30px;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(212, 175, 55, 0.2);
+            border-left: 4px solid #e8c547;
+        }
+
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .feature-card p {
+            color: #b0b0b0;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .stats {
+            background: var(--grey);
+            color: var(--primary);
+            padding: 60px 30px;
+            border-top: 2px solid var(--primary);
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .stats .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            text-align: center;
+        }
+
+        .stat {
+            padding: 20px;
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            font-size: 16px;
+            color: #b0b0b0;
+        }
+
+        .cta {
+            padding: 80px 30px;
+            text-align: center;
+            background: var(--dark);
+        }
+
+        .cta .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .cta p {
+            font-size: 18px;
+            color: #b0b0b0;
+            margin-bottom: 30px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta .btn-primary, .cta .btn-secondary {
+            padding: 15px 40px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta .btn-primary {
+            background: var(--primary);
+            color: var(--dark);
+        }
+
+        .cta .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .cta .btn-primary:hover, .cta .btn-secondary:hover {
+            transform: translateY(-3px);
+        }
+
+        footer {
+            background: var(--grey);
+            color: #b0b0b0;
+            text-align: center;
+            padding: 30px;
+            border-top: 2px solid var(--primary);
+        }
+
+        footer p {
+            margin: 10px 0;
+            font-size: 14px;
+        }
+
+        footer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .hero .buttons {
+                flex-direction: column;
+            }
+
+            .hero .btn-primary, .hero .btn-secondary {
+                width: 100%;
+            }
+
+            nav .nav-links {
+                gap: 15px;
+            }
+
+            .features h2 {
+                font-size: 28px;
+            }
+
+            .cta h2 {
+                font-size: 28px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .cta .btn-primary, .cta .btn-secondary {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <div class="logo">🔬 ResearchHub AI</div>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#about">About</a>
+                <a href="signin.html" class="btn">Sign In</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <h1>ResearchHub AI - Intelligent Research Management</h1>
+            <p>Discover, organize, and analyze research papers with AI-powered insights. Built for the modern researcher using Agentic AI and Groq's Llama 3.3.</p>
+            <div class="buttons">
+                <a href="signin.html" class="btn-primary">Sign In</a>
+                <a href="signup.html" class="btn-secondary">Get Started</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="container">
+            <h2>Powered by Advanced AI Technology</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3>Agentic AI</h3>
+                    <p>Autonomous AI agents that search, categorize, and analyze research papers intelligently</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">✨</div>
+                    <h3>GenAI Integration</h3>
+                    <p>Powered by Groq's Llama 3.3 70B for state-of-the-art natural language understanding</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3>Smart Search</h3>
+                    <p>Advanced paper discovery with semantic understanding and research relevance ranking</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💬</div>
+                    <h3>AI Chatbot</h3>
+                    <p>Interactive conversational AI that provides summaries, insights, and answers from papers</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📚</div>
+                    <h3>Paper Management</h3>
+                    <p>Organize papers with intelligent tagging, annotations, and personal workspace management</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Fast & Secure</h3>
+                    <p>Enterprise-grade security with JWT authentication and cloud-based infrastructure</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats">
+        <div class="container">
+            <div class="stat">
+                <div class="stat-number">1000+</div>
+                <div class="stat-label">Research Papers Indexed</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">Llama 3.3</div>
+                <div class="stat-label">70B Advanced Model</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">∞</div>
+                <div class="stat-label">Research Fields Supported</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">AI Assistance Available</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta" id="about">
+        <div class="container">
+            <h2>Ready to Transform Your Research?</h2>
+            <p>Join researchers using ResearchHub AI to accelerate their research discovery and analysis</p>
+            <div class="cta-buttons">
+                <a href="signup.html" class="btn-primary">Create Free Account</a>
+                <a href="signin.html" class="btn-secondary">Sign In</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 ResearchHub AI by akhilpro. All rights reserved.</p>
+        <p>Built with React, FastAPI, Groq Llama 3.3, and Advanced AI Technology</p>
+        <p><a href="https://github.com/SaiCharanBodigay/akhilpro">View on GitHub</a></p>
+    </footer>
+</body>
+</html>
         * {
             margin: 0;
             padding: 0;
