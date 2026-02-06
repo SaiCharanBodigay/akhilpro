@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: akhilpro-backend
+    env: node
+    plan: free
+    repo: https://github.com/SaiCharanBodigay/akhilpro
+    branch: main
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: MONGODB_URI
+        value: ${MONGODB_URI}
+      - key: JWT_SECRET
+        value: ${JWT_SECRET}
