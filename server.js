@@ -49,6 +49,11 @@ const userSchema = new mongoose.Schema({
         minlength: 6,
         select: false
     },
+    field: {
+        type: String,
+        default: 'Other',
+        enum: ['GenAI', 'Agentic AI', 'Computer Vision', 'Natural Language Processing', 'Machine Learning', 'Coding Languages', 'Distributed Systems', 'Quantum Computing', 'Other']
+    },
     createdAt: {
         type: Date,
         default: Date.now
@@ -109,20 +114,13 @@ const verifyToken = (req, res, next) => {
 // Signup Route
 app.post('/api/signup', async (req, res) => {
     try {
-        const { email, username, password, confirmPassword } = req.body;
+        const { email, username, password, field } = req.body;
 
         // Validation
-        if (!email || !username || !password || !confirmPassword) {
+        if (!email || !username || !password || !field) {
             return res.status(400).json({ 
                 success: false,
                 message: 'All fields are required' 
-            });
-        }
-
-        if (password !== confirmPassword) {
-            return res.status(400).json({ 
-                success: false,
-                message: 'Passwords do not match' 
             });
         }
 
@@ -156,7 +154,8 @@ app.post('/api/signup', async (req, res) => {
         const newUser = new User({ 
             email: email.toLowerCase(), 
             username, 
-            password 
+            password,
+            field
         });
         
         await newUser.save();
@@ -167,7 +166,8 @@ app.post('/api/signup', async (req, res) => {
             user: {
                 id: newUser._id,
                 email: newUser.email,
-                username: newUser.username
+                username: newUser.username,
+                field: newUser.field
             }
         });
     } catch (error) {
@@ -220,7 +220,8 @@ app.post('/api/signin', async (req, res) => {
             user: {
                 id: user._id,
                 email: user.email,
-                username: user.username
+                username: user.username,
+                field: user.field
             }
         });
     } catch (error) {
@@ -242,7 +243,8 @@ app.get('/api/verify-token', verifyToken, async (req, res) => {
             user: {
                 id: user._id,
                 email: user.email,
-                username: user.username
+                username: user.username,
+                field: user.field
             }
         });
     } catch (error) {
