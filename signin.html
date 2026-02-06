@@ -238,7 +238,7 @@
             const token = localStorage.getItem('authToken');
             if (token) {
                 // Verify token with backend
-                fetch('http://localhost:5000/api/verify-token?token=' + token, {
+                fetch('https://akhilpro.onrender.com/api/verify-token?token=' + token, {
                     method: 'GET',
                     headers: {
                         'Authorization': 'Bearer ' + token
@@ -317,7 +317,7 @@
             // If valid, send to backend
             if (isValid) {
                 try {
-                    fetch('http://localhost:5000/api/signin', {
+                    fetch('https://akhilpro.onrender.com/api/signin', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'

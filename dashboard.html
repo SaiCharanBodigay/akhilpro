@@ -305,7 +305,7 @@
         }
 
         function verifyTokenWithBackend(token) {
-            fetch('http://localhost:5000/api/verify-token?token=' + token, {
+            fetch('https://akhilpro.onrender.com/api/verify-token?token=' + token, {
                 method: 'GET',
                 headers: {
                     'Authorization': 'Bearer ' + token
@@ -337,7 +337,7 @@
             const token = localStorage.getItem('authToken');
             
             // Call logout API
-            fetch('http://localhost:5000/api/logout', {
+            fetch('https://akhilpro.onrender.com/api/logout', {
                 method: 'POST',
                 headers: {
                     'Authorization': 'Bearer ' + token
